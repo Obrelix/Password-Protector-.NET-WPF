@@ -86,8 +86,8 @@ namespace Hide_Your_Files_Inside_a_Picture
                     string imagePath = saveFileDialog.FileName;
                     if (!System.IO.Path.HasExtension(imagePath)) imagePath += ".jpg";
                     File.Copy(tempImagePath, imagePath);
-                    MessageBox.Show("Open the new image with a file compression program" + Environment.NewLine +
-                        "in order to get access to your hidden files !", "New image saved !", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("For accessing your hidden files open the new image " + Environment.NewLine +
+                      "with a file compression program like winrar, 7zip etc.", "New image saved !", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 deleteDummies(tempDirectory);
             }

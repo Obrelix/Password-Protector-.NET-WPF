@@ -41,13 +41,13 @@ namespace Hide_Your_Files_Inside_a_Picture
         
         private void hideFiles()
         {
+            string tempDirectory, imageName, tempImagePath, tempTextName, tempTextPath, tempTextZipPath;
+            tempDirectory = System.IO.Path.Combine(MainWindow.savePath, string.Format("{0:dd-MM-yyyy HH_mm_ss}", DateTime.Now));
+            List<string> commandsList = new List<string>();
             try
             {
 
-                string tempDirectory, imageName, tempImagePath, tempTextName, tempTextPath, tempTextZipPath;
-                List<string> commandsList = new List<string>();
 
-                tempDirectory = System.IO.Path.Combine(MainWindow.savePath, string.Format("{0:dd-MM-yyyy HH_mm_ss}", DateTime.Now));
                 Directory.CreateDirectory(@tempDirectory);
                 imageName = System.IO.Path.GetFileName(imagePath);
                 tempImagePath = System.IO.Path.Combine(tempDirectory, imageName);
@@ -74,9 +74,12 @@ namespace Hide_Your_Files_Inside_a_Picture
                     MessageBox.Show("For accessing your hidden files open the new image " + Environment.NewLine +
                         "with a file compression program like winrar, 7zip etc.", "New image saved !", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-                deleteDummies(tempDirectory);
             }
             catch (Exception) { throw; }
+            finally
+            {
+                deleteDummies(tempDirectory);
+            }
 
         }
 
@@ -191,7 +194,7 @@ namespace Hide_Your_Files_Inside_a_Picture
 
         private void btnResetImage_Click(object sender, RoutedEventArgs e)
         {
-            image.Source = image.Source = new BitmapImage(new Uri(@"pack://application:,,/Resources/Drop Image Here.png"));
+            image.Source = new BitmapImage(new Uri(@"pack://application:,,/Resources/Drop Image Here.png"));
         }
 
         #endregion

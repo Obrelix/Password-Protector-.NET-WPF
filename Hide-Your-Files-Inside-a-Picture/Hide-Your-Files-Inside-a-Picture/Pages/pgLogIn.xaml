@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Hide_Your_Files_Inside_a_Picture"
       mc:Ignorable="d" 
       d:DesignHeight="500" d:DesignWidth="520" Height="Auto" Width="Auto" MinWidth="500" MinHeight="520"
-      Title="Log on" KeyDown="Page_KeyDown">
+      Title="Log on" KeyDown="Page_KeyDown" Loaded="Page_Loaded">
     <Page.InputBindings>
         <KeyBinding Command="ApplicationCommands.Open"
               Gesture="CTRL+R" Key="Return" />
@@ -39,19 +39,20 @@
                     <SolidColorBrush Color="#FF0B7197" Opacity="0.7"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <TextBox x:Name="txtUserName" TabIndex="0" Margin="11,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-            <TextBox x:Name="txtPassword" TabIndex="1" Margin="11,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="txtUserName" TabIndex="0" Margin="11,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+            <PasswordBox x:Name="txtPassword" PasswordChar="*" TabIndex="1" Margin="11,0"  VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"  />
             <Label x:Name="lblUserName" TabIndex="5" Content="Username :" Margin="11,0" Foreground="#FF70FF59" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch" VerticalAlignment="Center" Padding="2" Grid.Row="1">
                 <Label.Background>
                     <SolidColorBrush Color="#FF414142" Opacity="0.675"/>
                 </Label.Background>
             </Label>
-            <Label x:Name="lblPassword" TabIndex="4" Content="Password" Margin="11,0" Foreground="#FF70FF59" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch" VerticalAlignment="Center" Padding="2" Grid.Row="2">
+            <Label x:Name="lblPassword" TabIndex="4" Content="Password :" Margin="11,0" Foreground="#FF70FF59" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch" VerticalAlignment="Center" Padding="2" Grid.Row="2">
                 <Label.Background>
                     <SolidColorBrush Color="#FF414142" Opacity="0.675"/>
                 </Label.Background>
             </Label>
+            <CheckBox x:Name="chbNewUser" Content="Create new user." Grid.Column="1" HorizontalAlignment="Center" Margin="0,9,0,0" VerticalAlignment="Center" Foreground="#FF89FF27" FontSize="16" Checked="chbNewUser_Checked"/>
             <Button x:Name="btnLogON" TabIndex="3" Content="Log in" Grid.Column="1" HorizontalAlignment="Center" Margin="0" Grid.Row="3" VerticalAlignment="Center" FontSize="16" Width="100" Click="btnLogON_Click"/>
         </Grid>
-    </Grid>
+        </Grid>
 </Page>

@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO.Compression;
+using System.Security.Cryptography;
 
 namespace Hide_Your_Files_Inside_a_Picture
 {
@@ -108,19 +109,94 @@ namespace Hide_Your_Files_Inside_a_Picture
 
         }
 
-
-
-        public static void deleteCredFile(string savePath, string userName)
+        public static string encodeMix(string data, string str1, string str2)
         {
-            string[] files = Directory.GetFiles(Path.Combine(savePath, ".credentials"));
-            foreach (string file in files)
+            try
             {
-                if (userName == file.Split('-').Last())
-                {
-                    System.IO.File.Delete(file);
-                }
+                data.Insert(data.Length - 2, str1.Substring(0, 5));
+                data = Base64Encode(data);
+                data.Insert(2, str2.Substring(4, 10));
+                return Base64Encode(data);
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
+
+        public static string decodeMix(string data, string str1, string str2)
+        {
+            try
+            {
+                data = Base64Decode(data);
+                data.Remove(2, str2.Substring(4, 10).Count());
+                data = Base64Decode(data);
+                data.Remove(data.Length - str1.Substring(0, 5).Count() - 2, str1.Substring(0, 5).Count());
+                return data;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public static string Base64Encode(string plainText)
+        {
+            try
+            {
+                var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+                return System.Convert.ToBase64String(plainTextBytes);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public static string Base64Decode(string base64EncodedData)
+        {
+            try
+            {
+                var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
+                return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public static string hashFromString(string text)
+        {
+            try
+            {
+
+                // byte array representation of that string
+                byte[] encodedPassword = new UTF8Encoding().GetBytes(text);
+
+                // need MD5 to calculate the hash
+                byte[] hash = ((HashAlgorithm)CryptoConfig.CreateFromName("MD5")).ComputeHash(encodedPassword);
+
+                // string representation (similar to UNIX format)
+                string encoded = BitConverter.ToString(hash)
+                   // without dashes
+                   .Replace("-", string.Empty)
+                   // make lowercase
+                   .ToLower();
+                return encoded;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        
 
         public static DataTable ToDataTable<T>(List<T> items)
         {
@@ -193,7 +269,6 @@ namespace Hide_Your_Files_Inside_a_Picture
             catch (Exception)
             {
                 throw;
-                return string.Empty;
             }
         }
     }

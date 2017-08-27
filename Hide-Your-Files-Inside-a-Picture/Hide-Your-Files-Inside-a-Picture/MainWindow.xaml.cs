@@ -38,12 +38,14 @@ namespace Hide_Your_Files_Inside_a_Picture
         }
 
         #region General Declaretion
+
         page frameState;
         pgAddFiles addfile;
         pgLogIn logOn;
         pgAddText addText;
         public static string savePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Secure_Log";
-        public static string saveFile = savePath + "\\dummy.json";
+        public static string saveFile = savePath + "\\log.json";
+        public static string username, password;
 
         #endregion
 
@@ -88,29 +90,6 @@ namespace Hide_Your_Files_Inside_a_Picture
             }
         }
         
-        private void loadUsers()
-        {
-            Directory.CreateDirectory(savePath);
-            try
-            {
-                if (System.IO.File.Exists(saveFile))
-                {
-                    //UserList.Clear();
-                    //UserList = JsonConvert.DeserializeObject<List<User>>(System.IO.File.ReadAllText(saveFile));
-                }
-                else
-                {
-                    Gtools.createFile(saveFile, "[ ]");
-                    loadUsers();
-                }
-            }
-            catch (Exception exc)
-            {
-                System.Diagnostics.Debug.WriteLine(exc.Message + " Load User Error.\n");
-
-            }
-        }
-
         #endregion
 
         #region Event Handlers
