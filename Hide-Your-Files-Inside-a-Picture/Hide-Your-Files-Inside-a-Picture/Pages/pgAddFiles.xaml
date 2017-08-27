@@ -1,0 +1,117 @@
+﻿<Page x:Class="Hide_Your_Files_Inside_a_Picture.pgAddFiles"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Hide_Your_Files_Inside_a_Picture"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="520" Height="Auto" Width="Auto" MinWidth="500" MinHeight="520" Loaded="Window_Loaded"
+      Title="pgAddFiles">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="337"/>
+            <RowDefinition/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="3" Margin="0" Grid.Row="2">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="15"/>
+                <RowDefinition Height="15"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="90*"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="90*"/>
+            </Grid.ColumnDefinitions>
+            <Rectangle Grid.ColumnSpan="3"  Grid.RowSpan="8" Stroke="Black" RadiusX="10" RadiusY="10" Grid.Column="1" StrokeThickness="5" >
+                <Rectangle.Fill>
+                    <SolidColorBrush Color="#FF0B7197" Opacity="0.7"/>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Expander x:Name="expander" Header="Select Files Manually" Grid.Row="1" Grid.Column="2" Foreground="#FF70FF59" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16" Collapsed="expander_Collapsed_1" Expanded="expander_Expanded">
+                <Grid  Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center"
+                       VerticalAlignment="Center"  Width="220" Height="90">
+                    <Grid.Background>
+                        <SolidColorBrush Color="Black" Opacity="0"/>
+                    </Grid.Background>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="4*"/>
+                        <RowDefinition Height="30*"/>
+                        <RowDefinition Height="30*"/>
+                        <RowDefinition Height="4*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="lblSelectPicture" Content="Select your Image" Margin="0" Grid.Column="1" Grid.Row="1" Foreground="#FF59FFFF" FontSize="18" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" VerticalAlignment="Center">
+                        <Label.Background>
+                            <SolidColorBrush Color="#FF414142" Opacity="0.675"/>
+                        </Label.Background>
+                    </Label>
+                    <Button x:Name="btnImage" Content="..." HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" Click="btnImage_Click" FontSize="18" Width="35" Foreground="#FF234419"/>
+                    <Label x:Name="lblSelectFile" Content="Select your File" Margin="0" Grid.Column="1" Grid.Row="2" Foreground="#FF59FFFF" FontSize="18" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" VerticalAlignment="Center">
+                        <Label.Background>
+                            <SolidColorBrush Color="#FF414142" Opacity="0.675"/>
+                        </Label.Background>
+                    </Label>
+                    <Button x:Name="btnFile" Content="..." HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2" Click="btnFile_Click" FontSize="18" Width="35" Foreground="#FF234419"/>
+                </Grid>
+            </Expander>
+            <Button x:Name="btnProcess" Content="Compress Files" HorizontalAlignment="Center" VerticalAlignment="Center" Width="130" Grid.Column="2" Grid.Row="3" Click="btnProcess_Click" FontSize="18" Foreground="#FF234419" Margin="3,0"/>
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+            </Grid.ColumnDefinitions>
+            <ListBox x:Name="lsbFiles" AllowDrop="True" Grid.Column="3" Grid.Row="1" ToolTip="Drug &amp; Drop files here!" Foreground="#FF59FFFF" FontSize="16" Drop="lsbFiles_Drop" DragEnter="lsbFiles_DragEnter" TextOptions.TextFormattingMode="Display" TextOptions.TextHintingMode="Animated" HorizontalContentAlignment="Center" SelectionChanged="lsbFiles_SelectionChanged" >
+                <ListBox.Background>
+                    <SolidColorBrush Color="#FF414142" Opacity="0.65"/>
+                </ListBox.Background>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Label x:Name="lblbg" Content="" Margin="0,1" Grid.Column="3" Foreground="#FF59FFFF" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch" VerticalAlignment="Center" Padding="2" Grid.Row="2">
+                <Label.Background>
+                    <SolidColorBrush Color="#FF414142" Opacity="0.675"/>
+                </Label.Background>
+            </Label>
+            <Button x:Name="button" Content="Reset Files" Grid.Column="3" HorizontalAlignment="Center" Margin="0" Grid.Row="2" VerticalAlignment="Center" Width="75" Click="button_Click"/>
+            <Label x:Name="lblFilesToCompress" Content="Files to compress" Margin="0" Grid.Column="3" Foreground="#FF70FF59" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch" VerticalAlignment="Center" Padding="2">
+                <Label.Background>
+                    <SolidColorBrush Color="#FF414142" Opacity="0.675"/>
+                </Label.Background>
+            </Label>
+
+        </Grid>
+
+        <Image x:Name="image" AllowDrop="True" Grid.Column="1" Grid.Row="1" MinWidth="350" MinHeight="250" Grid.ColumnSpan="3" Margin="0" DragEnter="image_DragEnter" Drop="image_Drop" Source="/Hide-Your-Files-Inside-a-Picture;component/Resources/Drop Image Here.png" ToolTip="Drag &amp; Drop Images here !"/>
+        <Button x:Name="btnResetImage" Content="Reset Image" Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,0,11" Grid.Row="1" VerticalAlignment="Bottom" Width="75" Click="btnResetImage_Click" Grid.ColumnSpan="3"/>
+    </Grid>
+</Page>
