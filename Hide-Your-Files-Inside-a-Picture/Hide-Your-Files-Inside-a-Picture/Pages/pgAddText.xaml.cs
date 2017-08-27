@@ -52,7 +52,7 @@ namespace Hide_Your_Files_Inside_a_Picture
                 imageName = System.IO.Path.GetFileName(imagePath);
                 tempImagePath = System.IO.Path.Combine(tempDirectory, imageName);
                 File.Copy(imagePath, tempImagePath);
-                tempTextName = "secret.txt"; tempTextPath = System.IO.Path.Combine(tempDirectory, tempTextName);
+                tempTextName = "source.txt"; tempTextPath = System.IO.Path.Combine(tempDirectory, tempTextName);
                 Gtools.createFile(tempTextPath, textTohide);
                 tempTextZipPath = Gtools.compressFile(tempDirectory, tempTextPath);
                 commandsList.Add("cd \"" + @tempDirectory + "\"");
@@ -70,7 +70,9 @@ namespace Hide_Your_Files_Inside_a_Picture
                 {
                     string imagePath = saveFileDialog.FileName;
                     if (!System.IO.Path.HasExtension(imagePath)) imagePath += ".jpg";
-                    File.Copy(tempImagePath, imagePath);
+                    File.Copy(tempImagePath, imagePath, true);
+                    MessageBox.Show("For accessing your hidden files open the new image " + Environment.NewLine +
+                        "with a file compression program like winrar, 7zip etc.", "New image saved !", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 deleteDummies(tempDirectory);
             }
@@ -187,7 +189,13 @@ namespace Hide_Your_Files_Inside_a_Picture
             textTohide = new TextRange(rtxtTextToHide.Document.ContentStart, rtxtTextToHide.Document.ContentEnd).Text;
         }
 
+        private void btnResetImage_Click(object sender, RoutedEventArgs e)
+        {
+            image.Source = image.Source = new BitmapImage(new Uri(@"pack://application:,,/Resources/Drop Image Here.png"));
+        }
+
         #endregion
+
 
     }
 }

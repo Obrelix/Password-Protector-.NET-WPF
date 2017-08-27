@@ -9,14 +9,11 @@
       Title="pgAddFiles">
 
     <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="/Resources/Background.jpg" Stretch="UniformToFill"/>
-        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
-            <RowDefinition Height="337"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="143"/>
+            <RowDefinition Height="280"/>
+            <RowDefinition Height="55"/>
+            <RowDefinition />
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -27,44 +24,48 @@
             <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="3" Margin="0,0,20,0" Grid.Row="2" Grid.RowSpan="2">
+        <Grid Grid.Column="1" Margin="0" Grid.Row="2" Grid.ColumnSpan="3">
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="15"/>
-                <RowDefinition Height="10*"/>
-                <RowDefinition Height="10"/>
-                <RowDefinition Height="10*"/>
-                <RowDefinition Height="15"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="26*"/>
-                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="27*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="10*"/>
             </Grid.ColumnDefinitions>
-            <Rectangle Grid.ColumnSpan="3"  Grid.RowSpan="7" Stroke="Black" RadiusX="10" RadiusY="10" Grid.Column="1" StrokeThickness="5" >
+            <Rectangle Grid.ColumnSpan="4"  Grid.RowSpan="5" Stroke="Black" RadiusX="10" RadiusY="10" StrokeThickness="5" Margin="60,0" >
                 <Rectangle.Fill>
                     <SolidColorBrush Color="#FF0B7197" Opacity="0.7"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <Label x:Name="lblSelectPicture" Content="Select your Image" Margin="0" Grid.Column="2" Grid.Row="1" Foreground="#FF59FFFF" FontSize="18" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" VerticalAlignment="Center" Width="206">
+            <Label x:Name="lblSelectPicture" Content="Select your Image" Margin="0" Grid.Column="1" Grid.Row="1" Foreground="#FF59FFFF" FontSize="18" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" VerticalAlignment="Center" Width="206">
                 <Label.Background>
                     <SolidColorBrush Color="#FF414142" Opacity="0.675"/>
                 </Label.Background>
             </Label>
-            <Button x:Name="btnImage" TabIndex="3" Content="..." HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Center" Grid.Column="2" Grid.Row="1" Click="btnImage_Click" FontSize="18" Width="35" Foreground="#FF234419"/>
+            <Button x:Name="btnImage" TabIndex="3" Content="..." HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" Click="btnImage_Click" FontSize="18" Width="35" Foreground="#FF234419"/>
 
-            <Button x:Name="btnProcess" TabIndex="1" Content="Hide your Text" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Grid.Column="2" Grid.Row="3" Click="btnProcess_Click" FontSize="18" Foreground="#FF234419" Margin="3,0"/>
+            <Button x:Name="btnProcess" TabIndex="1" Content="Hide your Text" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Grid.Column="2" Grid.Row="1" Click="btnProcess_Click" FontSize="18" Foreground="#FF234419" Margin="3,0"/>
         </Grid>
 
         <Image x:Name="image" AllowDrop="True" Grid.Column="1" Grid.Row="1" MinWidth="350" MinHeight="250" Grid.ColumnSpan="3" Margin="0" DragEnter="image_DragEnter" Drop="image_Drop" Source="/Password Protector;component/Resources/Drop Image Here.png" ToolTip="Drag &amp; Drop Images here !"/>
-        <RichTextBox x:Name="rtxtTextToHide" TabIndex="0" Margin="20,0,0,0" Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" TextChanged="richTextBox_TextChanged">
+        <RichTextBox x:Name="rtxtTextToHide" TabIndex="0" Margin="60,6,60,0" Grid.Row="3" Grid.Column="1" 
+                     TextChanged="richTextBox_TextChanged" Grid.ColumnSpan="3" BorderThickness="5" BorderBrush="#FF0B0B0C" 
+                     Foreground="#FF89FF27" AcceptsTab="True" FontSize="16" TextOptions.TextFormattingMode="Display" 
+                     TextOptions.TextHintingMode="Animated" Block.LineHeight="6" Block.TextAlignment="Justify" VerticalScrollBarVisibility="Auto">
+            <RichTextBox.Background>
+                <SolidColorBrush Color="#FF0B7197" Opacity="0.7"/>
+            </RichTextBox.Background>
             <FlowDocument>
                 <Paragraph>
-                    <Run Text="" ToolTip="Write here !"/>
+                    <Run Text="" ToolTip="Write your text here !"/>
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>
+        <Button x:Name="btnResetImage" Content="Reset Image" Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,0,9" Grid.Row="1" VerticalAlignment="Bottom" Width="75" Click="btnResetImage_Click" Grid.ColumnSpan="3"/>
     </Grid>
 </Page>

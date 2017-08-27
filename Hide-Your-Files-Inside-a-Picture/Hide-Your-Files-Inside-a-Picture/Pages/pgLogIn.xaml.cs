@@ -62,7 +62,7 @@ namespace Hide_Your_Files_Inside_a_Picture
 
         private void btnLogON_Click(object sender, RoutedEventArgs e)
         {
-            parentWindow.changePage(page.AddFiles);
+            parentWindow.changePage(page.AddText);
         }
     }
 }
