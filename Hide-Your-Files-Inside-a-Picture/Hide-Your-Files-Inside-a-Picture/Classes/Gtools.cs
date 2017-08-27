@@ -139,9 +139,9 @@ namespace Hide_Your_Files_Inside_a_Picture
         {
             try
             {
-                data.Insert(data.Length - 2, str1.Substring(0, 5));
+                data = data.Insert(data.Length - 2, str1.Substring(0, 5));
                 data = Base64Encode(data);
-                data.Insert(2, str2.Substring(4, 10));
+                data = data.Insert(2, str2.Substring(4, 10));
                 return Base64Encode(data);
             }
             catch (Exception)
@@ -157,14 +157,14 @@ namespace Hide_Your_Files_Inside_a_Picture
             {
                 string tempData = data;
                 tempData = Base64Decode(tempData);
-                tempData.Remove(2, str2.Substring(4, 10).Count());
+                tempData = tempData.Remove(2, str2.Substring(4, 10).Count());
                 tempData = Base64Decode(tempData);
-                tempData.Remove(tempData.Length - str1.Substring(0, 5).Count() - 2, str1.Substring(0, 5).Count());
+                tempData = tempData.Remove(tempData.Length - str1.Substring(0, 5).Count() - 2, str1.Substring(0, 5).Count());
                 return tempData;
             }
             catch (Exception)
             {
-                MessageBox.Show("Decoding error!","Error",MessageBoxButton.OK,MessageBoxImage.Error);
+                MessageBox.Show("Decoding error!","Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return data;
             }
         }

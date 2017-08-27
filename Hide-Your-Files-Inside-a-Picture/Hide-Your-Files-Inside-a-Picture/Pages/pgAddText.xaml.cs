@@ -26,6 +26,10 @@ namespace Hide_Your_Files_Inside_a_Picture
         {
             InitializeComponent();
             parentWindow = window;
+
+            rtxtTextToHide.AddHandler(RichTextBox.DragOverEvent, new DragEventHandler(Paragraph_DragEnter), true);
+            rtxtTextToHide.AddHandler(RichTextBox.DropEvent, new DragEventHandler(Paragraph_Drop), true);
+            rtxtTextToHide.AllowDrop = true;
         }
 
         #region General Declaretion
@@ -267,7 +271,13 @@ namespace Hide_Your_Files_Inside_a_Picture
                 Gtools.createFile(saveFileDialog.FileName, textTohide);
         }
 
-        private void rtxtTextToHide_PreviewDrop(object sender, DragEventArgs e)
+        private void Paragraph_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effects = (e.Data.GetDataPresent(DataFormats.FileDrop)) ? DragDropEffects.All : DragDropEffects.None;
+            e.Handled = false;
+        }
+
+        private void Paragraph_Drop(object sender, DragEventArgs e)
         {
             try
             {
@@ -291,11 +301,7 @@ namespace Hide_Your_Files_Inside_a_Picture
             catch (Exception) { throw; }
         }
 
-        private void rtxtTextToHide_PreviewDragEnter(object sender, DragEventArgs e)
-        {
-            e.Effects = (e.Data.GetDataPresent(DataFormats.FileDrop)) ? DragDropEffects.All : DragDropEffects.None;
-        }
-
         #endregion
+
     }
 }
