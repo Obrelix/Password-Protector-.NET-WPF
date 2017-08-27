@@ -38,15 +38,17 @@ namespace Hide_Your_Files_Inside_a_Picture
         }
 
         #region General Declaretion
-
+        page frameState;
         pgAddFiles addfile;
         pgLogIn logOn;
+        pgAddText addText;
         public static string savePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Secure_Log";
         public static string saveFile = savePath + "\\dummy.json";
 
         #endregion
 
         #region Function / Procedures
+
         public void changeHeight(double height)
         {
             if (!Dispatcher.CheckAccess())
@@ -76,18 +78,39 @@ namespace Hide_Your_Files_Inside_a_Picture
             }
             switch (page)
             {
-                case page.logOn:
-                    frame.Navigate(logOn);
+                case page.logOn:  frame.Navigate(logOn); frameState = page.logOn;
                     break;
-                case page.AddFiles:
-                    frame.Navigate(addfile);
+                case page.AddFiles:  frame.Navigate(addfile); frameState = page.AddFiles;
                     break;
-                case page.AddText:
+                case page.AddText:  frame.Navigate(addText); frameState = page.AddText;
                     break;
-                default:
-                    break;
+                default:    break;
             }
         }
+        
+        private void loadUsers()
+        {
+            Directory.CreateDirectory(savePath);
+            try
+            {
+                if (System.IO.File.Exists(saveFile))
+                {
+                    //UserList.Clear();
+                    //UserList = JsonConvert.DeserializeObject<List<User>>(System.IO.File.ReadAllText(saveFile));
+                }
+                else
+                {
+                    Gtools.createFile(saveFile, "[ ]");
+                    loadUsers();
+                }
+            }
+            catch (Exception exc)
+            {
+                System.Diagnostics.Debug.WriteLine(exc.Message + " Load User Error.\n");
+
+            }
+        }
+
         #endregion
 
         #region Event Handlers
@@ -98,10 +121,66 @@ namespace Hide_Your_Files_Inside_a_Picture
                 Directory.CreateDirectory(@savePath);
             logOn = new pgLogIn(this);
             addfile = new pgAddFiles(this);
-            frame.Navigate(logOn);
+            addText = new pgAddText(this);
+            changePage(page.logOn);
             //frame.Source = new Uri("/Hide-Your-Files-Inside-a-Picture;component/Pages/pgAddFiles.xaml", UriKind.Relative);
         }
 
+        private void mnuExit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void mnuAddText_Click(object sender, RoutedEventArgs e)
+        {
+            changePage(page.AddText);
+        }
+
+        private void mnuHideFiles(object sender, RoutedEventArgs e)
+        {
+            changePage(page.AddFiles);
+        }
+
+        private void mnuDownload_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/Obrelix/Hide-Your-Files-Inside-a-Picture");
+        }
+
+        private void mnuLogIn_Click(object sender, RoutedEventArgs e)
+        {
+            changePage(page.logOn);
+        }
+
+        private void mnuReport_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/Obrelix/Hide-Your-Files-Inside-a-Picture/issues");
+        }
+
+        private void frame_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+           
+        }
+
+        private void frame_Navigated(object sender, NavigationEventArgs e)
+        {
+            switch (frameState)
+            {
+                case page.logOn:
+                    mnuMainMenu.IsEnabled = false;
+                    break;
+                case page.AddFiles:
+                    mnuMainMenu.IsEnabled = true;
+                    break;
+                case page.AddText:
+                    mnuMainMenu.IsEnabled = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+
         #endregion
+
+
     }
 }

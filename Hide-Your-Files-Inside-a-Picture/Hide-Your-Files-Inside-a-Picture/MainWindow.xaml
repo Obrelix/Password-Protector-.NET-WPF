@@ -5,28 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Hide_Your_Files_Inside_a_Picture"
         mc:Ignorable="d"
-        Title="MainWindow" Height="630" Width="520" MinWidth="520" MinHeight="630" Loaded="Window_Loaded" Icon="Resources/lock.ico" >
+        Title="Password Protector" Height="650" Width="540" MinWidth="540" MinHeight="650" Loaded="Window_Loaded" Icon="Resources/lock.ico" >
     <Window.Background>
         <ImageBrush ImageSource="Resources/Background.jpg" Stretch="UniformToFill"/>
     </Window.Background>
 
     <DockPanel>
         <Menu DockPanel.Dock="Top" Background="White">
-            <MenuItem Header="_Menu" >
+            <MenuItem Name="mnuMainMenu" Header="_Menu" >
                 <Separator />
-                <MenuItem Header="_Encrypt your Passwords"  />
-                <!--<MenuItem Header="_Start Ckan" Click="Ckan_Click" />-->
-                    <Separator />
-                    <Separator />
-                    <MenuItem Header="_Exit"  />
-                </MenuItem>
-            <MenuItem Header="Help">
-                <MenuItem Header="Download" />
-                <MenuItem Header="Report an _issue"/>
+                <Separator />
+                <MenuItem Name="mnuLogIn" Header="_Log in page" Click="mnuLogIn_Click"  />
+                <MenuItem Name="mmuAddText" Header="En_crypt your Passwords" Click="mnuAddText_Click"  />
+                <MenuItem Name="mnuHide" Header="_Hide Files" Click="mnuHideFiles"  />
+                <Separator />
+                <Separator />
+                <MenuItem Name="mnuExit" Header="_Exit" Click="mnuExit_Click"  />
+            </MenuItem>
+            <MenuItem Name="mnuHelp" Header="Help">
+                <Separator />
+                <MenuItem Name="mnuDownload" Header="Download" Click="mnuDownload_Click" />
+                <MenuItem Name="mnuReport" Header="Report an _issue" Click="mnuReport_Click" />
+                <Separator />
             </MenuItem>
         </Menu>
         <Grid>
-            <Frame x:Name="frame" NavigationUIVisibility="Hidden"  Content="Frame" Margin="0"/>
+            <Frame x:Name="frame" NavigationUIVisibility="Hidden"  Content="Frame" Margin="0" DataContextChanged="frame_DataContextChanged" Navigated="frame_Navigated"/>
         </Grid>
     </DockPanel>
 </Window>

@@ -29,11 +29,10 @@ namespace Hide_Your_Files_Inside_a_Picture
         }
 
         #region General Declaretion
-
-        private List<FileIO> fileList = new List<FileIO>();
+        
         private string imagePath = string.Empty;
-
-        public static string savePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Secure_Log";
+        private string textTohide = string.Empty;
+        
         private MainWindow parentWindow;
 
         #endregion
@@ -45,24 +44,20 @@ namespace Hide_Your_Files_Inside_a_Picture
             try
             {
 
-                string tempDirectory, imageName, tempImagePath;
-                List<string> tempFileList = new List<string>();
+                string tempDirectory, imageName, tempImagePath, tempTextName, tempTextPath, tempTextZipPath;
                 List<string> commandsList = new List<string>();
 
-                tempDirectory = System.IO.Path.Combine(savePath, string.Format("{0:dd-MM-yyyy HH_mm_ss}", DateTime.Now));
+                tempDirectory = System.IO.Path.Combine(MainWindow.savePath, string.Format("{0:dd-MM-yyyy HH_mm_ss}", DateTime.Now));
                 Directory.CreateDirectory(@tempDirectory);
                 imageName = System.IO.Path.GetFileName(imagePath);
                 tempImagePath = System.IO.Path.Combine(tempDirectory, imageName);
                 File.Copy(imagePath, tempImagePath);
-
-                for (int i = 0; i <= fileList.Count - 1; i++)
-                {
-                    fileList[i].zipPath = Gtools.compressFile(tempDirectory, fileList[i].path);
-                }
-
+                tempTextName = "secret.txt"; tempTextPath = System.IO.Path.Combine(tempDirectory, tempTextName);
+                Gtools.createFile(tempTextPath, textTohide);
+                tempTextZipPath = Gtools.compressFile(tempDirectory, tempTextPath);
                 commandsList.Add("cd \"" + @tempDirectory + "\"");
                 commandsList.Add(@"Copy /b " + "\"" + @imageName + "\"" + @" + " + "\"" +
-                    System.IO.Path.GetFileName(@fileList[0].zipPath) + "\"" +
+                    System.IO.Path.GetFileName(tempTextZipPath) + "\"" +
                     @" " + "\"" + @imageName + "\"");
                 Gtools.ExecuteCMDCommands(commandsList);
 
@@ -117,10 +112,10 @@ namespace Hide_Your_Files_Inside_a_Picture
         
         private void btnProcess_Click(object sender, RoutedEventArgs e)
         {
-            if (fileList.Count < 1 || string.IsNullOrEmpty(imagePath))
+            if (textTohide.Length < 1 || string.IsNullOrEmpty(imagePath))
             {
-                string outPutString = (fileList.Count < 1) ?
-                    "Please add any file first." :
+                string outPutString = (textTohide.Length < 1) ?
+                    "Please add any text first." :
                     "Please add any jpg Image first.";
                 MessageBox.Show(outPutString,
                         "Compress Error!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
@@ -184,7 +179,12 @@ namespace Hide_Your_Files_Inside_a_Picture
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            richTextBox.Focus();
+            rtxtTextToHide.Focus();
+        }
+
+        private void richTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            textTohide = new TextRange(rtxtTextToHide.Document.ContentStart, rtxtTextToHide.Document.ContentEnd).Text;
         }
 
         #endregion

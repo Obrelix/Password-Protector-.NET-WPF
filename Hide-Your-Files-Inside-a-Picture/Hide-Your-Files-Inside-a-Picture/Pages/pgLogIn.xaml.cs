@@ -56,11 +56,8 @@ namespace Hide_Your_Files_Inside_a_Picture
         }
 
         private void Page_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                btnLogON_Click(this, new RoutedEventArgs());
-            }
+        {      
+            if (e.Key == Key.Enter) btnLogON_Click(this, new RoutedEventArgs());
         }
 
         private void btnLogON_Click(object sender, RoutedEventArgs e)

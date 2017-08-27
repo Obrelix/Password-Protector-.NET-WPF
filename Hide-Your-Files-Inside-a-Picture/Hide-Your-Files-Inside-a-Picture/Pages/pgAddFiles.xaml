@@ -74,7 +74,7 @@
                     <Button x:Name="btnFile" Content="..." HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2" Click="btnFile_Click" FontSize="18" Width="35" Foreground="#FF234419"/>
                 </Grid>
             </Expander>
-            <Button x:Name="btnProcess" Content="Compress Files" HorizontalAlignment="Center" VerticalAlignment="Center" Width="130" Grid.Column="2" Grid.Row="3" Click="btnProcess_Click" FontSize="18" Foreground="#FF234419" Margin="3,0"/>
+            <Button x:Name="btnProcess" Content="Hide Files" HorizontalAlignment="Center" VerticalAlignment="Center" Width="130" Grid.Column="2" Grid.Row="3" Click="btnProcess_Click" FontSize="18" Foreground="#FF234419" Margin="3,0"/>
         </Grid>
 
         <Grid Grid.Row="2" Grid.Column="1">
@@ -85,7 +85,7 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
             </Grid.ColumnDefinitions>
-            <ListBox x:Name="lsbFiles" AllowDrop="True" Grid.Column="3" Grid.Row="1" ToolTip="Drug &amp; Drop files here!" Foreground="#FF59FFFF" FontSize="16" Drop="lsbFiles_Drop" DragEnter="lsbFiles_DragEnter" TextOptions.TextFormattingMode="Display" TextOptions.TextHintingMode="Animated" HorizontalContentAlignment="Center" SelectionChanged="lsbFiles_SelectionChanged" >
+            <ListBox x:Name="lsbFiles" AllowDrop="True" Grid.Column="3" Grid.Row="1" ToolTip="Drug &amp; Drop here the files You want to hide!" Foreground="#FF59FFFF" FontSize="16" Drop="lsbFiles_Drop" DragEnter="lsbFiles_DragEnter" TextOptions.TextFormattingMode="Display" TextOptions.TextHintingMode="Animated" HorizontalContentAlignment="Center" SelectionChanged="lsbFiles_SelectionChanged" >
                 <ListBox.Background>
                     <SolidColorBrush Color="#FF414142" Opacity="0.65"/>
                 </ListBox.Background>
@@ -103,7 +103,7 @@
                 </Label.Background>
             </Label>
             <Button x:Name="button" Content="Reset Files" Grid.Column="3" HorizontalAlignment="Center" Margin="0" Grid.Row="2" VerticalAlignment="Center" Width="75" Click="button_Click"/>
-            <Label x:Name="lblFilesToCompress" Content="Files to compress" Margin="0" Grid.Column="3" Foreground="#FF70FF59" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch" VerticalAlignment="Center" Padding="2">
+            <Label x:Name="lblFilesToCompress" Content="Files for hiding " Margin="0" Grid.Column="3" Foreground="#FF70FF59" FontSize="18" HorizontalContentAlignment="Center" VerticalContentAlignment="Stretch" VerticalAlignment="Center" Padding="2">
                 <Label.Background>
                     <SolidColorBrush Color="#FF414142" Opacity="0.675"/>
                 </Label.Background>
@@ -111,7 +111,7 @@
 
         </Grid>
 
-        <Image x:Name="image" AllowDrop="True" Grid.Column="1" Grid.Row="1" MinWidth="350" MinHeight="250" Grid.ColumnSpan="3" Margin="0" DragEnter="image_DragEnter" Drop="image_Drop" Source="/Hide-Your-Files-Inside-a-Picture;component/Resources/Drop Image Here.png" ToolTip="Drag &amp; Drop Images here !"/>
+        <Image x:Name="image" AllowDrop="True" Grid.Column="1" Grid.Row="1" MinWidth="350" MinHeight="250" Grid.ColumnSpan="3" Margin="0" DragEnter="image_DragEnter" Drop="image_Drop" Source="/Password Protector;component/Resources/Drop Image Here.png" ToolTip="Drag &amp; Drop here the Image that will carry your hidden files !"/>
         <Button x:Name="btnResetImage" Content="Reset Image" Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,0,11" Grid.Row="1" VerticalAlignment="Bottom" Width="75" Click="btnResetImage_Click" Grid.ColumnSpan="3"/>
     </Grid>
 </Page>

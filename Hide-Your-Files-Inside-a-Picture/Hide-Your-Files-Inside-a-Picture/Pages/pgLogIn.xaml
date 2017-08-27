@@ -51,7 +51,7 @@
                     <SolidColorBrush Color="#FF414142" Opacity="0.675"/>
                 </Label.Background>
             </Label>
-            <Button x:Name="btnLogON" TabIndex="3" Content="Log on" Grid.Column="1" HorizontalAlignment="Center" Margin="0" Grid.Row="3" VerticalAlignment="Center" FontSize="16" Width="100" Click="btnLogON_Click"/>
+            <Button x:Name="btnLogON" TabIndex="3" Content="Log in" Grid.Column="1" HorizontalAlignment="Center" Margin="0" Grid.Row="3" VerticalAlignment="Center" FontSize="16" Width="100" Click="btnLogON_Click"/>
         </Grid>
     </Grid>
 </Page>

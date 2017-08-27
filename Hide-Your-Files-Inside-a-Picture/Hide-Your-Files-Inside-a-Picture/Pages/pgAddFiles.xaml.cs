@@ -32,9 +32,7 @@ namespace Hide_Your_Files_Inside_a_Picture
 
         private List<FileIO> fileList = new List<FileIO>();
         private string imagePath = string.Empty;
-
-        public static string savePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Secure_Log";
-        public static string saveFile = savePath + "\\dummy.json";
+        
         private MainWindow parentWindow;
 
         #endregion
@@ -61,7 +59,7 @@ namespace Hide_Your_Files_Inside_a_Picture
                 List<string> tempFileList = new List<string>();
                 List<string> commandsList = new List<string>();
 
-                tempDirectory = System.IO.Path.Combine(savePath, string.Format("{0:dd-MM-yyyy HH_mm_ss}", DateTime.Now));
+                tempDirectory = System.IO.Path.Combine(MainWindow.savePath, string.Format("{0:dd-MM-yyyy HH_mm_ss}", DateTime.Now));
                 Directory.CreateDirectory(@tempDirectory);
                 imageName = System.IO.Path.GetFileName(imagePath);
                 tempImagePath = System.IO.Path.Combine(tempDirectory, imageName);
@@ -104,29 +102,6 @@ namespace Hide_Your_Files_Inside_a_Picture
             foreach (DirectoryInfo dir in di.GetDirectories()) dir.Delete(true);
 
             di.Delete(true);
-        }
-
-        private void loadUsers()
-        {
-            Directory.CreateDirectory(savePath);
-            try
-            {
-                if (System.IO.File.Exists(saveFile))
-                {
-                    //UserList.Clear();
-                    //UserList = JsonConvert.DeserializeObject<List<User>>(System.IO.File.ReadAllText(saveFile));
-                }
-                else
-                {
-                    Gtools.createFile(saveFile, "[ ]");
-                    loadUsers();
-                }
-            }
-            catch (Exception exc)
-            {
-                System.Diagnostics.Debug.WriteLine(exc.Message + " Load User Error.\n");
-
-            }
         }
 
         #endregion
