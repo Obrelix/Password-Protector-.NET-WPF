@@ -57,7 +57,7 @@
                 </Paragraph>
             </FlowDocument>
         </RichTextBox>
-        <Expander x:Name="expander" Header="Hide your text" Grid.Row="1" Grid.Column="2" Foreground="#FF70FF59" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16" Collapsed="expander_Collapsed_1" Expanded="expander_Expanded" BorderBrush="Black" BorderThickness="5" Margin="0,0,0,5">
+        <Expander x:Name="expander" Header="Hide your text" Grid.Row="1" Grid.Column="2" Foreground="#FF70FF59" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16" Collapsed="expander_Collapsed_1" Expanded="expander_Expanded" BorderBrush="Black" BorderThickness="5" Margin="0,0,0,5">
             <Expander.Background>
                 <SolidColorBrush Color="#FF0B7197" Opacity="0.7"/>
             </Expander.Background>
@@ -73,8 +73,8 @@
                 <Image x:Name="image" AllowDrop="True" MinWidth="350" MinHeight="250" Margin="0" DragEnter="image_DragEnter" Drop="image_Drop" Source="/Password Protector;component/Resources/Drop Image Here.png" ToolTip="Drag &amp; Drop Images here !" MaxWidth="350" MaxHeight="250" Grid.ColumnSpan="2"/>
                 <Button x:Name="btnResetImage" Content="Reset Image" HorizontalAlignment="Center" Margin="0,0,0,5" VerticalAlignment="Bottom" Width="74" Click="btnResetImage_Click" FontSize="12" Grid.ColumnSpan="2"/>
 
-                <Button x:Name="btnImage" TabIndex="3" Content="Add image" HorizontalAlignment="Center" Margin="0,0,0,5" VerticalAlignment="Center" Grid.Row="1" Click="btnImage_Click" FontSize="16" Foreground="#FF234419" Width="150"/>
-                <Button x:Name="btnProcess" TabIndex="1" Content="Hide your Text" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Grid.Column="2" Grid.Row="1" Click="btnProcess_Click" FontSize="16" Foreground="Red" Margin="0,0,0,5"/>
+                <Button x:Name="btnImage" TabIndex="3" Content="Add image" HorizontalAlignment="Left" Margin="0,0,0,5" VerticalAlignment="Center" Grid.Row="1" Click="btnImage_Click" FontSize="16" Foreground="#FF234419" Width="150"/>
+                <Button x:Name="btnProcess" TabIndex="1" Content="Hide your Text" HorizontalAlignment="Right" VerticalAlignment="Center" Width="150" Grid.Column="2" Grid.Row="1" Click="btnProcess_Click" FontSize="16" Foreground="Red" Margin="0,0,0,5"/>
 
             </Grid>
         </Expander>
