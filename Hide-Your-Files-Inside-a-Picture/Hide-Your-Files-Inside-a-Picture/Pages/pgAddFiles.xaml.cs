@@ -55,7 +55,7 @@ namespace Hide_Your_Files_Inside_a_Picture
             try
             {
 
-                string tempDirectory, imageName, tempImagePath;
+                string tempDirectory, imageName, tempImagePath,tempZipPath;
                 List<string> tempFileList = new List<string>();
                 List<string> commandsList = new List<string>();
 
@@ -65,20 +65,21 @@ namespace Hide_Your_Files_Inside_a_Picture
                 tempImagePath = System.IO.Path.Combine(tempDirectory, imageName);
                 File.Copy(imagePath, tempImagePath);
 
+                tempZipPath = Gtools.compressFile(tempDirectory, fileList);
                 for (int i = 0; i <= fileList.Count - 1; i++)
                 {
-                    fileList[i].zipPath = Gtools.compressFile(tempDirectory, fileList[i].path);
+                    fileList[i].zipPath = tempZipPath;
                 }
 
                 commandsList.Add("cd \"" + @tempDirectory + "\"");
                 commandsList.Add(@"Copy /b " + "\"" + @imageName + "\"" + @" + " + "\"" +
-                    System.IO.Path.GetFileName(@fileList[0].zipPath) + "\"" +
+                    System.IO.Path.GetFileName(@tempZipPath) + "\"" +
                     @" " + "\"" + @imageName + "\"");
                 Gtools.ExecuteCMDCommands(commandsList);
 
 
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
-                saveFileDialog.Title = "Save your image as jpg file.";
+                saveFileDialog.Title = "Save your new image.";
                 saveFileDialog.DefaultExt = "*.jpg";
                 saveFileDialog.Filter = "Image Files|*.jpg";
                 if (saveFileDialog.ShowDialog() == true)

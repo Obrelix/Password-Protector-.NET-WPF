@@ -10,13 +10,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO.Compression;
 using System.Security.Cryptography;
+using System.Windows;
 
 namespace Hide_Your_Files_Inside_a_Picture
 {
     public static class Gtools
     {
-
-        
 
         public static string compressFile(string dirPath, string filePath)
         {
@@ -26,7 +25,33 @@ namespace Hide_Your_Files_Inside_a_Picture
             {
                 using (ZipFile zip = new ZipFile(Encoding.UTF8))
                 {
-                    zip.AddFile(filePath, "Files");
+                   
+                    zip.AddFile(filePath, "");
+                    
+                    zip.Save(@zipPath);
+                }
+                return @zipPath;
+            }
+            catch (Exception exc)
+            {
+                System.Diagnostics.Debug.WriteLine(exc.Message + " Compress IO.File Error");
+                return null;
+            }
+
+        }
+
+        public static string compressFile(string dirPath, List<FileIO> fileList)
+        {
+            string zipPath = Path.Combine(dirPath, "dummy.zip");
+
+            try
+            {
+                using (ZipFile zip = new ZipFile(Encoding.UTF8))
+                {
+                    foreach(FileIO file in fileList)
+                    {
+                        zip.AddFile(file.path, "");
+                    }
                     zip.Save(@zipPath);
                 }
                 return @zipPath;
@@ -54,6 +79,7 @@ namespace Hide_Your_Files_Inside_a_Picture
                 System.IO.File.WriteAllText(saveFile, contentToWrite);
                 return true;
             }
+
             catch (Exception exc)
             {
                 System.Diagnostics.Debug.WriteLine(exc.Message +" Create IO.File Error");
@@ -129,16 +155,36 @@ namespace Hide_Your_Files_Inside_a_Picture
         {
             try
             {
-                data = Base64Decode(data);
-                data.Remove(2, str2.Substring(4, 10).Count());
-                data = Base64Decode(data);
-                data.Remove(data.Length - str1.Substring(0, 5).Count() - 2, str1.Substring(0, 5).Count());
-                return data;
+                string tempData = data;
+                tempData = Base64Decode(tempData);
+                tempData.Remove(2, str2.Substring(4, 10).Count());
+                tempData = Base64Decode(tempData);
+                tempData.Remove(tempData.Length - str1.Substring(0, 5).Count() - 2, str1.Substring(0, 5).Count());
+                return tempData;
             }
             catch (Exception)
             {
+                MessageBox.Show("Decoding error!","Error",MessageBoxButton.OK,MessageBoxImage.Error);
+                return data;
+            }
+        }
 
-                throw;
+        public static string readTextFromFile(string filePath)
+        {
+            try
+            {  
+                using (StreamReader sr = new StreamReader(filePath))
+                {
+                    // Read the stream to a string, and write the string to the console.
+                    String line = sr.ReadToEnd();
+                    return line;
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("The file could not be read:" + Environment.NewLine+
+                    e.Message);
+                return string.Empty;
             }
         }
 

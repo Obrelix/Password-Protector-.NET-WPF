@@ -29,16 +29,16 @@ namespace Hide_Your_Files_Inside_a_Picture
         }
 
         #region General Declaretion
-        
+
         private string imagePath = string.Empty;
         private string textTohide = string.Empty;
-        
+
         private MainWindow parentWindow;
 
         #endregion
 
         #region Functions / Procedures
-        
+
         private void hideFiles()
         {
             string tempDirectory, imageName, tempImagePath, tempTextName, tempTextPath, tempTextZipPath;
@@ -46,8 +46,6 @@ namespace Hide_Your_Files_Inside_a_Picture
             List<string> commandsList = new List<string>();
             try
             {
-
-
                 Directory.CreateDirectory(@tempDirectory);
                 imageName = System.IO.Path.GetFileName(imagePath);
                 tempImagePath = System.IO.Path.Combine(tempDirectory, imageName);
@@ -93,7 +91,43 @@ namespace Hide_Your_Files_Inside_a_Picture
 
             di.Delete(true);
         }
-        
+
+        private void encodeDecodeTextBoxText(bool encode)
+        {
+            try
+            {
+                string encodedText = new TextRange(rtxtTextToHide.Document.ContentStart, rtxtTextToHide.Document.ContentEnd).Text;
+                encodedText = (encode) ? Gtools.encodeMix(encodedText,
+                    MainWindow.username, MainWindow.password) :
+                    Gtools.decodeMix(encodedText,
+                    MainWindow.username, MainWindow.password);
+                addTextToTextBox(encodedText);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private void addTextToTextBox(string text)
+        {
+            try
+            {
+                rtxtTextToHide.Document.Blocks.Clear();
+                FlowDocument ObjFdoc = new FlowDocument();
+                Paragraph ObjPara1 = new Paragraph();
+                ObjPara1.Inlines.Add(new Run(text));
+                ObjFdoc.Blocks.Add(ObjPara1);
+                rtxtTextToHide.Document = ObjFdoc;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         #endregion
 
         #region Event Handlers
@@ -114,7 +148,7 @@ namespace Hide_Your_Files_Inside_a_Picture
             catch (Exception) { throw; }
 
         }
-        
+
         private void btnProcess_Click(object sender, RoutedEventArgs e)
         {
             if (textTohide.Length < 1 || string.IsNullOrEmpty(imagePath))
@@ -168,13 +202,13 @@ namespace Hide_Your_Files_Inside_a_Picture
             }
             catch (Exception) { throw; }
         }
-        
+
         private void expander_Expanded(object sender, RoutedEventArgs e)
         {
             this.Height += 100;
             parentWindow.changeHeight(this.Height + 50);
         }
-        
+
         private void expander_Collapsed_1(object sender, RoutedEventArgs e)
         {
             this.Height -= 100;
@@ -197,8 +231,71 @@ namespace Hide_Your_Files_Inside_a_Picture
             image.Source = new BitmapImage(new Uri(@"pack://application:,,/Resources/Drop Image Here.png"));
         }
 
+        private void btnEncode_Click(object sender, RoutedEventArgs e)
+        {
+            encodeDecodeTextBoxText(true);
+        }
+
+        private void btnDecode_Click(object sender, RoutedEventArgs e)
+        {
+            encodeDecodeTextBoxText(false);
+        }
+
+        private void btnLoadFile_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.DefaultExt = "*.txt";
+                openFileDialog.Filter = "Text Files|*.txt";
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    string text = Gtools.readTextFromFile(openFileDialog.FileName);
+                    addTextToTextBox(text);
+                }
+            }
+            catch (Exception) { throw; }
+        }
+
+        private void btnSaveFile_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Title = "Save your image as jpg file.";
+            saveFileDialog.DefaultExt = "*.txt";
+            saveFileDialog.Filter = "Text Files|*.txt";
+            if (saveFileDialog.ShowDialog() == true)
+                Gtools.createFile(saveFileDialog.FileName, textTohide);
+        }
+
+        private void rtxtTextToHide_PreviewDrop(object sender, DragEventArgs e)
+        {
+            try
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+                foreach (string file in files)
+                {
+                    if (System.IO.Path.GetExtension(file) == ".txt" || System.IO.Path.GetExtension(file) == ".TXT")
+                    {
+                        string text = Gtools.readTextFromFile(file);
+                        addTextToTextBox(text);
+                    }
+                    else
+                    {
+                        MessageBox.Show("File is not valid text file." + Environment.NewLine + "Please insert a .txt file.",
+                            "File format error!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        return;
+                    }
+                }
+            }
+            catch (Exception) { throw; }
+        }
+
+        private void rtxtTextToHide_PreviewDragEnter(object sender, DragEventArgs e)
+        {
+            e.Effects = (e.Data.GetDataPresent(DataFormats.FileDrop)) ? DragDropEffects.All : DragDropEffects.None;
+        }
+
         #endregion
-
-
     }
 }
