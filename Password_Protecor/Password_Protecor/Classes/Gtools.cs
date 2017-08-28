@@ -175,9 +175,9 @@ namespace Hide_Your_Files_Inside_a_Picture
         {
             try
             {
-                data = data.Insert(data.Length - 2, str1.Substring(0, 5));
+                data = data.Insert(data.Length - 2, str1);
                 data = Base64Encode(data);
-                data = data.Insert(2, str2.Substring(4, 10));
+                data = data.Insert(2, str2);
                 return Base64Encode(data);
             }
             catch (Exception)
@@ -193,9 +193,9 @@ namespace Hide_Your_Files_Inside_a_Picture
             {
                 string tempData = data;
                 tempData = Base64Decode(tempData);
-                tempData = tempData.Remove(2, str2.Substring(4, 10).Count());
+                tempData = tempData.Remove(2, str2.Length);
                 tempData = Base64Decode(tempData);
-                tempData = tempData.Remove(tempData.Length - str1.Substring(0, 5).Count() - 2, str1.Substring(0, 5).Count());
+                tempData = tempData.Remove(tempData.Length - str1.Length - 2, str1.Length);
                 return tempData;
             }
             catch (Exception)

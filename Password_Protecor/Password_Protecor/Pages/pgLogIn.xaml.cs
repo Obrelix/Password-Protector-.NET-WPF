@@ -127,10 +127,8 @@ namespace Hide_Your_Files_Inside_a_Picture
         {
             if (txtUserName.Text.Length >= 5 && txtPassword.Password.Length >= 8)
             {
-                username = Gtools.hashFromString(Gtools.encodeMix(txtUserName.Text, "23niasW24fAFA", "94jfasfF24Ojio"));
-                password = Gtools.hashFromString(Gtools.encodeMix(txtPassword.Password, "23niasW24fAFA", "94jfasfF24Ojio"));
-                username = Gtools.hashFromString(Gtools.encodeMix(txtUserName.Text, username, password));
-                password = Gtools.hashFromString(Gtools.encodeMix(txtPassword.Password, username, password));
+                username = Gtools.hashFromString(Gtools.encodeMix(txtUserName.Text, txtUserName.Text, txtPassword.Password));
+                password = Gtools.hashFromString(Gtools.encodeMix(txtPassword.Password, txtUserName.Text, txtPassword.Password));
 
                 //string text = txtUserName.Text;
                 //System.Diagnostics.Debug.WriteLine(text);
@@ -146,7 +144,7 @@ namespace Hide_Your_Files_Inside_a_Picture
                         MainWindow.password = txtPassword.Password;
                         addNewUser();
                         saveUsers();
-                        chbNewUser.IsEnabled = false;
+                        chbNewUser.IsChecked = false;
                         parentWindow.changePage(page.AddText);
                         break;
                     case false:

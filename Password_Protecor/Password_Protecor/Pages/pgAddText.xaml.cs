@@ -317,7 +317,13 @@ namespace Hide_Your_Files_Inside_a_Picture
             catch (Exception) { throw; }
         }
 
+        private void btnClear_Click(object sender, RoutedEventArgs e)
+        {
+            rtxtTextToHide.Document.Blocks.Clear();
+        }
+
         #endregion
+
 
     }
 }
