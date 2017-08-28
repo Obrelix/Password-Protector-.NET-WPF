@@ -36,8 +36,8 @@
                 </Rectangle.Fill>
             </Rectangle>
 
-            <Button x:Name="btnEncode" Content="Encode text" HorizontalAlignment="Left" Margin="15,15,0,15" Grid.Row="2" VerticalAlignment="Center" Width="75" Click="btnEncode_Click" />
-            <Button x:Name="btnDecode" Content="Decode text" HorizontalAlignment="Right" Margin="0,15,10,15" Grid.Row="2" VerticalAlignment="Center" Width="75" Click="btnDecode_Click"  />
+            <Button x:Name="btnEncode" Content="Encrypt text" HorizontalAlignment="Left" Margin="15,15,0,15" Grid.Row="2" VerticalAlignment="Center" Width="75" Click="btnEncode_Click" />
+            <Button x:Name="btnDecode" Content="Decrypt text" HorizontalAlignment="Right" Margin="0,15,10,15" Grid.Row="2" VerticalAlignment="Center" Width="75" Click="btnDecode_Click"  />
             <Button x:Name="btnLoadFile" Content="Load File" Grid.Column="2" HorizontalAlignment="Left" Margin="10,15,0,15" Grid.Row="2" VerticalAlignment="Center" Width="75" Click="btnLoadFile_Click"  />
             <Button x:Name="btnSaveFile" Content="Save File" Grid.Column="2" HorizontalAlignment="Right" Margin="0,15,15,15" Grid.Row="2" VerticalAlignment="Center" Width="75" Click="btnSaveFile_Click" />
 

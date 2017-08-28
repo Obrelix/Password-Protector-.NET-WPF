@@ -122,8 +122,6 @@ namespace Hide_Your_Files_Inside_a_Picture
         {
             if (e.Key == Key.Enter) btnLogON_Click(this, new RoutedEventArgs());
         }
-        
-        
 
         private void btnLogON_Click(object sender, RoutedEventArgs e)
         {
@@ -134,18 +132,18 @@ namespace Hide_Your_Files_Inside_a_Picture
                 username = Gtools.hashFromString(Gtools.encodeMix(txtUserName.Text, username, password));
                 password = Gtools.hashFromString(Gtools.encodeMix(txtPassword.Password, username, password));
 
-                string text = txtUserName.Text;
-                System.Diagnostics.Debug.WriteLine(text);
-                text = Gtools.encodeMix(text, username, password);
-                System.Diagnostics.Debug.WriteLine(text);
-                text = Gtools.decodeMix(text, username, password);
-                System.Diagnostics.Debug.WriteLine(text);
+                //string text = txtUserName.Text;
+                //System.Diagnostics.Debug.WriteLine(text);
+                //text = Gtools.encodeMix(text, username, password);
+                //System.Diagnostics.Debug.WriteLine(text);
+                //text = Gtools.decodeMix(text, username, password);
+                //System.Diagnostics.Debug.WriteLine(text);
 
                 switch (chbNewUser.IsChecked)
                 {
                     case true:
-                        MainWindow.username = username;
-                        MainWindow.password = password;
+                        MainWindow.username = txtUserName.Text;
+                        MainWindow.password = txtPassword.Password;
                         addNewUser();
                         saveUsers();
                         chbNewUser.IsEnabled = false;
@@ -154,8 +152,8 @@ namespace Hide_Your_Files_Inside_a_Picture
                     case false:
                         if (compareUsers())
                         {
-                            MainWindow.username = username;
-                            MainWindow.password = password;
+                            MainWindow.username = txtUserName.Text;
+                            MainWindow.password = txtPassword.Password;
                             parentWindow.changePage(page.AddText);
                         }
                         else

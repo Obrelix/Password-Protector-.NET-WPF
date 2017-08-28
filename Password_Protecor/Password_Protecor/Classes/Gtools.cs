@@ -40,6 +40,42 @@ namespace Hide_Your_Files_Inside_a_Picture
 
         }
 
+        public static string extractFile(string zipPath)
+        {
+            try
+            {
+                
+                string tempDirectory = System.IO.Path.Combine(MainWindow.savePath, string.Format("{0:dd-MM-yyyy HH_mm_ss}", DateTime.Now));
+
+                Directory.CreateDirectory(tempDirectory);
+                if (Path.GetExtension(zipPath) == ".jpg" || Path.GetExtension(zipPath) == ".JPG")
+                {
+                    File.Copy(zipPath, Path.Combine(tempDirectory, "dummy.zip"));
+                    zipPath = Path.Combine(tempDirectory, "dummy.zip");
+                }
+                using (ZipFile zip = ZipFile.Read(zipPath))
+                {
+                   
+                    foreach (ZipEntry entry in zip)
+                    {
+                        if(Path.GetExtension(entry.FileName) == ".txt" || Path.GetExtension(entry.FileName) == ".TXT")
+                        {
+                            entry.Extract(tempDirectory, ExtractExistingFileAction.OverwriteSilently);
+                            return Path.Combine(tempDirectory, entry.FileName);
+                        }
+                            
+                    }
+                }
+                return string.Empty;
+            }
+            catch (Exception exc)
+            {
+                Debug.WriteLine(exc.Message + " Compress IO.File Error");
+                return string.Empty;
+            }
+            
+        }
+
         public static string compressFile(string dirPath, List<FileIO> fileList)
         {
             string zipPath = Path.Combine(dirPath, "dummy.zip");

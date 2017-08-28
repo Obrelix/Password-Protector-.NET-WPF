@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Ionic.Zip;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -96,15 +97,13 @@ namespace Hide_Your_Files_Inside_a_Picture
             di.Delete(true);
         }
 
-        private void encodeDecodeTextBoxText(bool encode)
+        private void encryptDecryptTextFromTextBox(bool encode)
         {
             try
             {
                 string encodedText = new TextRange(rtxtTextToHide.Document.ContentStart, rtxtTextToHide.Document.ContentEnd).Text;
-                encodedText = (encode) ? Gtools.encodeMix(encodedText,
-                    MainWindow.username, MainWindow.password) :
-                    Gtools.decodeMix(encodedText,
-                    MainWindow.username, MainWindow.password);
+                encodedText = (encode) ? StringCipher.Encrypt(encodedText, MainWindow.password + MainWindow.username) :
+                                         StringCipher.Decrypt(encodedText, MainWindow.password + MainWindow.username);
                 addTextToTextBox(encodedText);
             }
             catch (Exception)
@@ -237,12 +236,12 @@ namespace Hide_Your_Files_Inside_a_Picture
 
         private void btnEncode_Click(object sender, RoutedEventArgs e)
         {
-            encodeDecodeTextBoxText(true);
+            encryptDecryptTextFromTextBox(true);
         }
 
         private void btnDecode_Click(object sender, RoutedEventArgs e)
         {
-            encodeDecodeTextBoxText(false);
+            encryptDecryptTextFromTextBox(false);
         }
 
         private void btnLoadFile_Click(object sender, RoutedEventArgs e)
@@ -289,6 +288,23 @@ namespace Hide_Your_Files_Inside_a_Picture
                     {
                         string text = Gtools.readTextFromFile(file);
                         addTextToTextBox(text);
+                    }
+                    else if (System.IO.Path.GetExtension(file) == ".jpg" || System.IO.Path.GetExtension(file) == ".JPG")
+                    {
+                        string textPath = Gtools.extractFile(file);
+                        if (!string.IsNullOrEmpty(textPath))
+                        {
+                            string text = Gtools.readTextFromFile(textPath);
+                            addTextToTextBox(text);
+                            deleteDummies(System.IO.Path.GetDirectoryName(textPath));
+                        }
+                    }
+                    else if (System.IO.Path.GetExtension(file) == ".zip" || System.IO.Path.GetExtension(file) == ".ZIP")
+                    {
+                        string textPath = Gtools.extractFile(file);
+                        string text = Gtools.readTextFromFile(textPath);
+                        addTextToTextBox(text);
+                        deleteDummies(System.IO.Path.GetDirectoryName(textPath));
                     }
                     else
                     {
